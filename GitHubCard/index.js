@@ -1,8 +1,14 @@
+import axios from "axios"
+console.log(axios);
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+const result = axios.get('https://api.github.com/users/JasmineLaneGarcia')
+console.log(result);
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
