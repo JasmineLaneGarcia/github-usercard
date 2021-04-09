@@ -7,9 +7,6 @@ console.log(axios);
     https://api.github.com/users/<your name>
 */
 
-const result = axios.get('https://api.github.com/users/JasmineLaneGarcia')
-console.log(result);
-
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -23,6 +20,8 @@ console.log(result);
     and append the returned markup to the DOM as a child of .cards
 */
 
+let cards = document.querySelector(".cards");
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -34,7 +33,18 @@ console.log(result);
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+]
+
+followersArray.forEach((array) => {
+  const element = array.index
+})
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -64,3 +74,60 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+function cardMaker(object){
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const userAddress = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card');
+  img.setAttribute = ("src", object.avatar_url);
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  name.textContent = object.name;
+  username.classList.add('username');
+  username.textContent = object.login;
+  location.textContent = object.location;
+  profile.appendChild(userAddress);
+  userAddress.href = object.html_url;
+  userAddress.textContent = "address to users github page";
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  card.appendChild(bio);
+  bio.textContent = `Bio: ${object.bio}`;
+
+  card.appendChild(img);
+  card.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  card.appendChild(profile);
+  card.appendChild(userAddress);
+  card.appendChild(followers);
+  card.appendChild(following);
+
+  return card;
+}
+
+axios
+.get(`https://api.github.com/users/JasmineLaneGarcia`)
+
+.then((res) => {
+  console.log(res.data);
+  const userInfo = res.data;
+  const getCard = cardMaker(userInfo);
+  cards.appendChild(getCard);
+})
+
+.catch((err) => {
+  console.log(err);
+})
+
